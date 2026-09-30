@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Necesario para que se vea bien en el celular -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cinthia Calle · Catálogos para panaderías</title>
+  <meta name="description" content="Catálogos para panaderías: tus clientes eligen y te llega el pedido armado por WhatsApp.">
+
+  <style>
+    /* ====== Colores y medidas (se cambian acá y afectan a toda la página) ====== */
+    :root {
+      --fondo: #fffaf3;        /* crema */
+      --fondo-alt: #f6ead9;    /* crema más oscuro para alternar secciones */
+      --texto: #2b2118;
+      --texto-suave: #6b5b4b;
+      --acento: #b5651d;       /* color de botones y detalles */
+      --acento-oscuro: #8f4e14;
+      --borde: #e5d3bb;
+      --ancho: 720px;          /* ancho máximo del contenido */
+    }
+
+    /* ====== Base ====== */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--texto);
+      background: var(--fondo);
+    }
+
+    /* Contenedor centrado con margen lateral cómodo en el celular */
+    .contenedor {
+      max-width: var(--ancho);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ====== Header ====== */
+    header {
+      border-bottom: 1px solid var(--borde);
+      padding: 1rem 0;
+    }
+    header .contenedor {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .marca { font-weight: 700; font-size: 1.15rem; }
+    .marca small { display: block; font-weight: 400; font-size: .85rem; color: var(--texto-suave); }
+
+    /* ====== Secciones ====== */
+    section { padding: 3rem 0; }
+    section:nth-of-type(even) { background: var(--fondo-alt); } /* alterna el fondo */
+    h1 { font-size: clamp(1.9rem, 6vw, 2.75rem); line-height: 1.15; margin: 0 0 1rem; }
+    h2 { font-size: clamp(1.4rem, 4.5vw, 1.8rem); line-height: 1.25; margin: 0 0 .75rem; }
+    p  { margin: 0 0 1rem; }
+    .suave { color: var(--texto-suave); }
+
+    /* Dos cajas "para quién sí / no": una al lado de la otra en pantallas grandes */
+    .dos-columnas { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .dos-columnas { grid-template-columns: 1fr 1fr; } }
+    .caja {
+      background: #fff;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .caja h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
+
+    /* Caja vacía donde después va la demo */
+    .demo {
+      min-height: 260px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 2px dashed var(--acento);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--texto-suave);
+      padding: 1rem;
+    }
+
+    /* Pasos: lista numerada */
+    ol.pasos { padding-left: 1.25rem; margin: 0; }
+    ol.pasos li { margin-bottom: .75rem; }
+
+    /* Preguntas frecuentes (details/summary: no necesita JavaScript) */
+    details {
+      background: #fff;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      margin-bottom: .75rem;
+    }
+    summary {
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      min-height: 48px;          /* fácil de tocar con el dedo */
+    }
+    details p { padding: 0 1.25rem; margin: 0 0 1rem; }
+
+    /* ====== Botón principal ====== */
+    .boton {
+      display: inline-block;
+      background: var(--acento);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: .9rem 1.5rem;
+      border-radius: 999px;
+      text-align: center;
+    }
+    .boton:hover, .boton:focus-visible { background: var(--acento-oscuro); }
+    .boton:focus-visible { outline: 3px solid var(--texto); outline-offset: 2px; }
+    /* En el celular el botón ocupa todo el ancho */
+    @media (max-width: 480px) { .boton { display: block; } }
+
+    #reunion { text-align: center; }
+
+    footer { padding: 1.5rem 0; text-align: center; font-size: .9rem; color: var(--texto-suave); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER con tu nombre ===== -->
+  <header>
+    <div class="contenedor">
+      <div class="marca">Cinthia Calle <small>Catálogos para panaderías</small></div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1) PRESENTACIÓN -->
+    <section id="presentacion">
+      <div class="contenedor">
+        <h1>Título principal de la presentación</h1>
+        <p class="suave">Texto placeholder: acá va una frase corta que explique quién sos y qué ofrecés.</p>
+      </div>
+    </section>
+
+    <!-- 2) PARA QUIÉN SÍ / PARA QUIÉN NO -->
+    <section id="para-quien">
+      <div class="contenedor">
+        <h2>Para quién sí y para quién no</h2>
+        <div class="dos-columnas">
+          <div class="caja">
+            <h3>Para quién sí</h3>
+            <p class="suave">Texto placeholder.</p>
+          </div>
+          <div class="caja">
+            <h3>Para quién no</h3>
+            <p class="suave">Texto placeholder.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) DEMO: antes y después -->
+    <section id="demo">
+      <div class="contenedor">
+        <h2>Demo: antes y después</h2>
+        <p class="suave">Texto placeholder: contraste entre el antes y el después.</p>
+        <!-- Caja vacía: acá se inserta la demo para tocar más adelante -->
+        <div class="demo">Acá va la demo</div>
+      </div>
+    </section>
+
+    <!-- 4) CÓMO TRABAJO -->
+    <section id="como-trabajo">
+      <div class="contenedor">
+        <h2>Cómo trabajo, paso a paso</h2>
+        <ol class="pasos suave">
+          <li>Paso 1: texto placeholder.</li>
+          <li>Paso 2: texto placeholder.</li>
+          <li>Paso 3: texto placeholder.</li>
+          <li>Paso 4: texto placeholder.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 5) CÓMO SE ARMA UN PRESUPUESTO (sin precios) -->
+    <section id="presupuesto">
+      <div class="contenedor">
+        <h2>Cómo se arma un presupuesto</h2>
+        <p class="suave">Texto placeholder: cómo se calcula y cuándo se conversa.</p>
+      </div>
+    </section>
+
+    <!-- 6) PREGUNTAS FRECUENTES -->
+    <section id="preguntas">
+      <div class="contenedor">
+        <h2>Preguntas frecuentes</h2>
+        <details>
+          <summary>Pregunta 1</summary>
+          <p class="suave">Respuesta placeholder.</p>
+        </details>
+        <details>
+          <summary>Pregunta 2</summary>
+          <p class="suave">Respuesta placeholder.</p>
+        </details>
+        <details>
+          <summary>Pregunta 3</summary>
+          <p class="suave">Respuesta placeholder.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- 7) BOTÓN DE REUNIÓN -->
+    <section id="reunion">
+      <div class="contenedor">
+        <h2>¿Hablamos?</h2>
+        <p class="suave">Texto placeholder de invitación.</p>
+        <!-- TODO: reemplazar href="#" por el link de agenda cuando lo tengas -->
+        <a class="boton" href="#">Agendá una reunión de 20 minutos</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="contenedor">© Cinthia Calle</div>
+  </footer>
+
+</body>
+</html>
