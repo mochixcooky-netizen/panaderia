@@ -72,6 +72,10 @@
     }
     .caja h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
 
+    /* Listas con viñetas dentro de las cajas */
+    ul.lista { margin: 0; padding-left: 1.2rem; color: var(--texto-suave); }
+    ul.lista li { margin-bottom: .6rem; }
+
     /* Caja vacía donde después va la demo */
     .demo {
       min-height: 260px;
@@ -139,8 +143,9 @@
     <!-- 1) PRESENTACIÓN -->
     <section id="presentacion">
       <div class="contenedor">
-        <h1>Título principal de la presentación</h1>
-        <p class="suave">Texto placeholder: acá va una frase corta que explique quién sos y qué ofrecés.</p>
+        <h1>Tu panadería, con pedidos que llegan ordenados.</h1>
+        <p>Soy Cinthia Calle. Armo catálogos de pedidos para panaderías: una página simple donde tus clientes eligen lo que quieren y les queda armado el mensaje de WhatsApp para mandártelo.</p>
+        <p class="suave">Uso inteligencia artificial para que quede rápido y a medida, pero vos no tenés que entender nada de tecnología. Listo en 10 días desde que me pasás tus productos y fotos.</p>
       </div>
     </section>
 
@@ -151,11 +156,19 @@
         <div class="dos-columnas">
           <div class="caja">
             <h3>Para quién sí</h3>
-            <p class="suave">Texto placeholder.</p>
+            <ul class="lista">
+              <li>Panaderías de barrio y pymes del rubro que ya venden por WhatsApp.</li>
+              <li>Las que reciben audios, fotos y mensajes sueltos con pedidos.</li>
+              <li>Las que tienen a alguien del local contestando lo mismo todo el día.</li>
+            </ul>
           </div>
           <div class="caja">
             <h3>Para quién no</h3>
-            <p class="suave">Texto placeholder.</p>
+            <ul class="lista">
+              <li>Si todavía no vendés por WhatsApp, por ahora no es el momento.</li>
+              <li>Si no tenés a nadie que me responda rápido durante los 10 días.</li>
+              <li>Si no podés pasarme tus productos, precios y fotos para arrancar.</li>
+            </ul>
           </div>
         </div>
       </div>
