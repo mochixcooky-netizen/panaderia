@@ -78,16 +78,58 @@
 
     /* Caja vacía donde después va la demo */
     .demo {
-      min-height: 260px;
-      display: grid;
-      place-items: center;
-      text-align: center;
       border: 2px dashed var(--acento);
       border-radius: 12px;
       background: #fff;
-      color: var(--texto-suave);
       padding: 1rem;
+      margin: 1rem 0;
     }
+    .antes, .despues { margin: 0 0 1rem; }
+    .despues { margin-top: 1rem; }
+    .nota { font-size: .95rem; margin-bottom: .75rem; }
+
+    /* Una fila por producto: nombre y precio a la izquierda, cantidad a la derecha */
+    .producto {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+      padding: .7rem 0;
+      border-bottom: 1px solid var(--borde);
+    }
+    .producto .info { flex: 1; min-width: 0; }
+    .producto .nombre { font-weight: 600; }
+    .producto .detalle { font-size: .9rem; color: var(--texto-suave); }
+    .cantidad { display: flex; align-items: center; gap: .5rem; }
+    .cantidad button {
+      width: 44px; height: 44px;          /* tamaño cómodo para el dedo */
+      border-radius: 50%;
+      border: 1px solid var(--acento);
+      background: #fff;
+      color: var(--acento-oscuro);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    .cantidad button:hover { background: var(--fondo-alt); }
+    .cantidad output { min-width: 1.5rem; text-align: center; font-weight: 700; }
+
+    .campos { display: grid; gap: .75rem; margin: 1rem 0; }
+    @media (min-width: 560px) { .campos { grid-template-columns: 1fr 1fr; } }
+    .campos label { display: block; font-weight: 600; font-size: .95rem; }
+    .campos input, .campos select {
+      display: block; width: 100%; margin-top: .25rem;
+      padding: .7rem; font: inherit;
+      border: 1px solid var(--borde); border-radius: 8px; background: #fff;
+    }
+    .mensaje-titulo { margin: 0 0 .5rem; font-size: 1.05rem; }
+    #mensaje {
+      width: 100%; padding: .75rem; font: inherit; font-size: .95rem;
+      border: 1px solid var(--borde); border-radius: 8px;
+      background: var(--fondo); color: var(--texto); resize: vertical;
+    }
+    .boton-copiar { border: 0; cursor: pointer; font: inherit; font-weight: 700; margin-top: .75rem; width: 100%; }
+    @media (min-width: 481px) { .boton-copiar { width: auto; } }
+    .copiado { min-height: 1.5rem; margin: .5rem 0 0; color: var(--acento-oscuro); font-weight: 600; }
 
     /* Pasos: lista numerada */
     ol.pasos { padding-left: 1.25rem; margin: 0; }
@@ -178,9 +220,41 @@
     <section id="demo">
       <div class="contenedor">
         <h2>Demo: antes y después</h2>
-        <p class="suave">Texto placeholder: contraste entre el antes y el después.</p>
-        <!-- Caja vacía: acá se inserta la demo para tocar más adelante -->
-        <div class="demo">Acá va la demo</div>
+        <!-- 1) EL ANTES, en una frase -->
+        <p class="antes"><strong>Antes:</strong> audios, fotos y mensajes sueltos, y vos preguntando "¿cuántas docenas dijiste?".</p>
+
+        <!-- 2) LA DEMO (productos y precios de ejemplo) -->
+        <div class="demo" id="demo-app">
+          <p class="suave nota">Probala: sumá productos, elegí el día de retiro y mirá cómo se arma el mensaje. Productos y precios de ejemplo.</p>
+
+          <!-- La lista de productos la genera el JavaScript de abajo -->
+          <div id="productos"></div>
+
+          <div class="campos">
+            <label>Tu nombre
+              <input type="text" id="nombre" placeholder="Ej: Laura" autocomplete="off">
+            </label>
+            <label>Día de retiro
+              <select id="dia">
+                <option>Hoy</option>
+                <option>Mañana</option>
+                <option selected>Sábado</option>
+                <option>Domingo</option>
+              </select>
+            </label>
+          </div>
+
+          <h3 class="mensaje-titulo">Tu mensaje de WhatsApp</h3>
+          <textarea id="mensaje" readonly rows="9" aria-label="Mensaje de WhatsApp armado"></textarea>
+          <button type="button" class="boton boton-copiar" id="copiar">Copiar mensaje</button>
+          <p class="copiado" id="aviso" role="status"></p>
+        </div>
+
+        <!-- 3) EL DESPUÉS, en una frase -->
+        <p class="despues"><strong>Después:</strong> el cliente marca lo que quiere, aprieta un botón y te llega el pedido armado, con cantidades y día de retiro.</p>
+
+        <!-- Botón final de la demo: lleva a la sección de la reunión (donde va tu link de agenda) -->
+        <a class="boton" href="#reunion">¿Lo ves claro? Agendá 20 minutos y te armo la versión para tu negocio</a>
       </div>
     </section>
 
@@ -240,5 +314,90 @@
     <div class="contenedor">© Cinthia Calle</div>
   </footer>
 
+  <script>
+    /* ===== DEMO: catálogo + pedido por WhatsApp ===== */
+
+    // Productos de ejemplo. "unidad" es lo que se muestra en el mensaje.
+    const PRODUCTOS = [
+      { nombre: "Pan francés",           unidad: "kg",      precio: 3200,  detalle: "Por kilo, crocante y del día" },
+      { nombre: "Medialunas de manteca", unidad: "docena",  precio: 6500,  detalle: "Docena, horneadas a la mañana" },
+      { nombre: "Facturas surtidas",     unidad: "docena",  precio: 6000,  detalle: "Docena: vigilantes, cañones y bolas de fraile" },
+      { nombre: "Bizcochitos de grasa",  unidad: "½ kg",    precio: 3800,  detalle: "Medio kilo, ideales para el mate" },
+      { nombre: "Pan de campo",          unidad: "unidad",  precio: 2800,  detalle: "Unidad de 500 g" },
+      { nombre: "Chocotorta grande",     unidad: "torta",   precio: 18000, detalle: "Por encargo, 12 porciones" }
+    ];
+
+    const cantidades = PRODUCTOS.map(() => 0);   // cuántos pidió el cliente de cada producto
+    const $ = (id) => document.getElementById(id);
+    const dinero = (n) => "$" + n.toLocaleString("es-AR");
+
+    // Dibuja la lista de productos con sus botones − y +
+    function dibujarProductos() {
+      $("productos").innerHTML = PRODUCTOS.map((p, i) => `
+        <div class="producto">
+          <div class="info">
+            <div class="nombre">${p.nombre}</div>
+            <div class="detalle">${p.detalle} · ${dinero(p.precio)}</div>
+          </div>
+          <div class="cantidad">
+            <button type="button" data-i="${i}" data-paso="-1" aria-label="Quitar ${p.nombre}">−</button>
+            <output id="cant-${i}">0</output>
+            <button type="button" data-i="${i}" data-paso="1" aria-label="Sumar ${p.nombre}">+</button>
+          </div>
+        </div>`).join("");
+    }
+
+    // Arma el texto del mensaje según lo elegido
+    function armarMensaje() {
+      const lineas = [];
+      let total = 0;
+      PRODUCTOS.forEach((p, i) => {
+        if (cantidades[i] > 0) {
+          lineas.push(`- ${cantidades[i]} × ${p.nombre} (${p.unidad})`);
+          total += cantidades[i] * p.precio;
+        }
+      });
+      if (lineas.length === 0) {
+        $("mensaje").value = "Todavía no elegiste nada. Sumá productos con el botón + y el mensaje se arma solo.";
+        return;
+      }
+      const nombre = $("nombre").value.trim() || "(tu nombre)";
+      $("mensaje").value =
+        "¡Hola! Quiero hacer un pedido:\n" +
+        lineas.join("\n") +
+        `\n\nTotal aproximado: ${dinero(total)}` +
+        `\nRetiro: ${$("dia").value}` +
+        `\nNombre: ${nombre}`;
+    }
+
+    // Toques en − y +
+    $("productos").addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-i]");
+      if (!b) return;
+      const i = Number(b.dataset.i);
+      cantidades[i] = Math.max(0, cantidades[i] + Number(b.dataset.paso));
+      $("cant-" + i).textContent = cantidades[i];
+      armarMensaje();
+    });
+    $("nombre").addEventListener("input", armarMensaje);
+    $("dia").addEventListener("change", armarMensaje);
+
+    // Copiar al portapapeles (con plan B por si el navegador lo bloquea al abrir el archivo con doble clic)
+    $("copiar").addEventListener("click", async () => {
+      const area = $("mensaje");
+      let ok = false;
+      try { await navigator.clipboard.writeText(area.value); ok = true; }
+      catch (err) {
+        area.select();
+        try { ok = document.execCommand("copy"); } catch (e2) {}
+      }
+      $("aviso").textContent = ok
+        ? "¡Copiado! Ya lo podés pegar en WhatsApp."
+        : "No se pudo copiar solo: el texto quedó seleccionado, copialo con Ctrl+C.";
+    });
+
+    dibujarProductos();
+    armarMensaje();
+  </script>
 </body>
 </html>
